@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS flyway_test (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(100)
+);
