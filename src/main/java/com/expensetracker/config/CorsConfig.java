@@ -19,7 +19,8 @@ public class CorsConfig {
 
         config.setAllowedOrigins(
                 List.of(
-                        "http://localhost:4200"
+                        "http://localhost:4200",
+                        "https://expense-tracker-frontend-l42oljnrq-vinothkumar-j.vercel.app"
                 )
         );
 

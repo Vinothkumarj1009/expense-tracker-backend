@@ -24,4 +24,6 @@ public interface BudgetRepository
             Integer year
     );
 
+    boolean existsByCategoryId(UUID categoryId);
+
 }

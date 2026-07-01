@@ -162,4 +162,6 @@ public interface ExpenseRepository
             Integer month,
             Integer year
     );
+
+    boolean existsByCategoryId(UUID categoryId);
 }

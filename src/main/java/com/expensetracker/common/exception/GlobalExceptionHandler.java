@@ -1,5 +1,7 @@
 package com.expensetracker.common.exception;
 
+import com.expensetracker.category.exception.CategoryInUseException;
+import com.expensetracker.category.exception.CategoryNotFoundException;
 import com.expensetracker.common.dto.ErrorResponse;
 import com.expensetracker.user.exception.EmailAlreadyExistsException;
 import com.expensetracker.user.exception.InvalidCredentialsException;
@@ -128,6 +130,44 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(response);
+    }
+
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleCategoryNotFound(
+            CategoryNotFoundException ex,
+            HttpServletRequest request
+    ) {
+
+        ErrorResponse response = ErrorResponse.builder()
+                .timestamp(Instant.now())
+                .status(HttpStatus.NOT_FOUND.value())
+                .error("Category Not Found")
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .build();
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(response);
+    }
+
+    @ExceptionHandler(CategoryInUseException.class)
+    public ResponseEntity<ErrorResponse> handleCategoryInUse(
+            CategoryInUseException ex,
+            HttpServletRequest request
+    ) {
+
+        ErrorResponse response = ErrorResponse.builder()
+                .timestamp(Instant.now())
+                .status(HttpStatus.CONFLICT.value())
+                .error("Category In Use")
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .build();
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
                 .body(response);
     }
 }
